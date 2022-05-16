@@ -41,6 +41,11 @@ def allowed_file(filename):
 def responseData(value):
     data = {'text': value}
     return jsonify(data)
+    
+@app.route("/", methods=["GET"])
+def welcome():
+    return "Speech2Text API"
+
 
 @app.route("/transcription", methods=["POST"])
 def run():
