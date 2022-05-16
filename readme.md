@@ -1,0 +1,1 @@
+- Tải 2 thư mục "cache", "model_best" xuống từ link sau:
