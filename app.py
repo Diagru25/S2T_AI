@@ -50,11 +50,12 @@ def welcome():
 @app.route("/transcription", methods=["POST"])
 def run():
   if request.method == 'POST':
+        print(request.files)
     # check if the post request has the file part
         if 'file' not in request.files:
             return responseData('')
         file = request.files['file']
-        #print(file)
+        
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -69,4 +70,4 @@ def run():
             return responseData(text)
 
 if __name__ == "__main__":
-    app.run(debug=False, port=8000, host="0.0.0.0")
+    app.run(debug=True, port=5001, host="0.0.0.0")
