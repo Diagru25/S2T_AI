@@ -39,7 +39,13 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def responseData(value):
-    data = {'text': value}
+    data = {'text': value, 
+            'icon_ids': ['id1', 'id2', 'id3'], 
+            'locations': [
+                            {'name': 'ha noi', 'coordinate': [21.033628, 105.842595]}, 
+                            {'name': 'tp ho chi minh', 'coordinate': [10.785518, 106.671927]}
+                        ]
+            }
     return jsonify(data)
 
 @app.route("/", methods=["GET"])
