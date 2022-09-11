@@ -9,6 +9,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import Wav2Vec2ForCTC, Wav2Vec2Processor, Wav2Vec2Tokenizer
 from run import get_transcription, get_decoder_ngram_model
+import pandas
 
 UPLOAD_FOLDER = os.getcwd()
 ALLOWED_EXTENSIONS = {'wav', 'mp3'}
@@ -38,13 +39,29 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def search_object(text = ""):
+    icon_list_result = []
+    location_list_result = []
+
+    excel_data_df = pandas.read_excel('khqs.xlsx', usecols=['MaKHQS', 'TuKhoa'])
+    icon_list = excel_data_df.to_dict(orient='records')
+    for icon in icon_list:
+        keyword_list = icon['TuKhoa'].split(',')
+        for c in keyword_list:
+            keyword = c.strip().lower()
+            if(keyword in text):
+                icon_list_result.append(str(icon['MaKHQS']))
+    
+    
+    location_list = []
+
+    return icon_list_result, location_list_result
+
 def responseData(value):
+    icon_ids, locations = search_object(value)
     data = {'text': value, 
-            'icon_ids': ['id1', 'id2', 'id3'], 
-            'locations': [
-                            {'name': 'ha noi', 'coordinate': [21.033628, 105.842595]}, 
-                            {'name': 'tp ho chi minh', 'coordinate': [10.785518, 106.671927]}
-                        ]
+            'icon_ids': icon_ids, 
+            'locations': locations
             }
     return jsonify(data)
 
