@@ -43,8 +43,8 @@ def search_object(text = ""):
     icon_list_result = []
     location_list_result = []
 
-    excel_data_df = pandas.read_excel('khqs.xlsx', usecols=['MaKHQS', 'TuKhoa'])
-    icon_list = excel_data_df.to_dict(orient='records')
+    excel_data_df_icon = pandas.read_excel('khqs.xlsx', usecols=['MaKHQS', 'TuKhoa'])
+    icon_list = excel_data_df_icon.to_dict(orient='records')
     for icon in icon_list:
         keyword_list = icon['TuKhoa'].split(',')
         for c in keyword_list:
@@ -52,9 +52,19 @@ def search_object(text = ""):
             if(keyword in text):
                 icon_list_result.append(str(icon['MaKHQS']))
     
+    excel_data_df_location = pandas.read_excel('diadiem.xlsx', usecols=['TenDoiTuong', 'DanhSachToaDo', 'TuKhoa'])
+    location_list = excel_data_df_location.to_dict(orient='records')
+    for location in location_list:
+        keyword_list = location['TuKhoa'].split(',')
+        for c in keyword_list:
+            keyword = c.strip().lower()
+            if(keyword in text):
+                coordinate = location['DanhSachToaDo'].split(';')
+                coordinate[0] = float(coordinate[0])
+                coordinate[1] = float(coordinate[1])
+                obj = {'name': str(location['TenDoiTuong']), 'coordinate': coordinate}
+                location_list_result.append(obj)
     
-    location_list = []
-
     return icon_list_result, location_list_result
 
 def responseData(value):
