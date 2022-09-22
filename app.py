@@ -43,13 +43,14 @@ def search_object(text = ""):
     icon_list_result = []
     location_list_result = []
 
-    excel_data_df_icon = pandas.read_excel('khqs.xlsx', usecols=['MaKHQS', 'TuKhoa'])
+    excel_data_df_icon = pandas.read_excel('khqs.xlsx', usecols=['MaKHQS', 'TuKhoa', 'TaDich'])
     icon_list = excel_data_df_icon.to_dict(orient='records')
     for icon in icon_list:
         keyword_list = icon['TuKhoa'].split(',')
         for c in keyword_list:
             keyword = c.strip().lower()
             if(keyword in text):
+                obj = {'name': str(icon['MaKHQS']), 'flag': int(icon['TaDich'])}
                 icon_list_result.append(str(icon['MaKHQS']))
     
     excel_data_df_location = pandas.read_excel('diadiem.xlsx', usecols=['TenDoiTuong', 'DanhSachToaDo', 'TuKhoa'])
