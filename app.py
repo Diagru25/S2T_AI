@@ -80,10 +80,6 @@ def responseData(value):
 def welcome():
     return "Speech2Text API"
 
-@app.route("/test", methods=["GET"])
-def welcome():
-    return "Speech2Text API"
-
 
 @app.route("/transcription", methods=["POST"])
 def run():
