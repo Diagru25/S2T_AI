@@ -50,7 +50,7 @@ def search_object(text = ""):
         for c in keyword_list:
             keyword = c.strip().lower()
             if(keyword in text):
-                obj = {'id': str(icon['MaKHQS']), 'flag': int(icon['TaDichgitg'])}
+                obj = {'id': str(icon['MaKHQS']), 'flag': icon['TaDich']}
                 icon_list_result.append(obj)
     
     excel_data_df_location = pandas.read_excel('diadiem.xlsx', usecols=['TenDoiTuong', 'DanhSachToaDo', 'TuKhoa'])
