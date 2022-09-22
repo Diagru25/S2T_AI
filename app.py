@@ -50,8 +50,8 @@ def search_object(text = ""):
         for c in keyword_list:
             keyword = c.strip().lower()
             if(keyword in text):
-                obj = {'name': str(icon['MaKHQS']), 'flag': int(icon['TaDich'])}
-                icon_list_result.append(str(icon['MaKHQS']))
+                obj = {'id': str(icon['MaKHQS']), 'flag': int(icon['TaDichgitg'])}
+                icon_list_result.append(obj)
     
     excel_data_df_location = pandas.read_excel('diadiem.xlsx', usecols=['TenDoiTuong', 'DanhSachToaDo', 'TuKhoa'])
     location_list = excel_data_df_location.to_dict(orient='records')
@@ -77,6 +77,10 @@ def responseData(value):
     return jsonify(data)
 
 @app.route("/", methods=["GET"])
+def welcome():
+    return "Speech2Text API"
+
+@app.route("/test", methods=["GET"])
 def welcome():
     return "Speech2Text API"
 
